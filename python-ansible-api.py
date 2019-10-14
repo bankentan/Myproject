@@ -225,8 +225,7 @@ class AnsibleRunner(object):
         try:
             if extra_vars:
                 self._variable_manager.extra_vars = extra_vars
-            playbook = PlaybookExecutor(playbooks=[playbook_path], inventory=self._inventory, variable_manager=self._variable_manager, loader=self._loader,
-                                        options=self._options, passwords=self._passwords)
+            playbook = PlaybookExecutor(playbooks=[playbook_path], inventory=self._inventory, variable_manager=self._variable_manager, loader=self._loader, passwords=self._passwords)
             # 配置使用自定义callback
             self._callback = PlaybookCallResultCollector()
             playbook._tqm._stdout_callback = self._callback
@@ -260,7 +259,7 @@ class AnsibleRunner(object):
 
 
 def main():
-    temphosts_list = [{"ip": "172.16.48.250", "port": "22", "username": "root", "password": "12qwaszx!@QW"}]
+    temphosts_list = [{"ip": "222.187.0.121", "port": "2121", "username": "root", "password": "/*bankentan123"}]
 
     temphosts_dict = {
         "Group1": {
@@ -277,7 +276,7 @@ def main():
     # print(mi.VARIABLE_MANAGER.get_vars(host=host))
 
     ar = AnsibleRunner(temphosts_list)
-    ar.run_playbook("/Users/rex.chen/PycharmProjects/IDCMigration/AnsibleStudy/f1.yml")
+    ar.run_playbook("/root/ansible/test.yml")
     print(ar.get_playbook_result())
 
 if __name__ == "__main__":
