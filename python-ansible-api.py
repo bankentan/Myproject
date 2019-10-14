@@ -259,7 +259,7 @@ class AnsibleRunner(object):
 
 
 def main():
-    temphosts_list = [{"ip": "222.187.0.121", "port": "2121", "username": "root", "password": "/*bankentan123"}]
+    temphosts_list = [{"ip": "222.187.0.121", "port": "2121", "username": "root", "password": "123"}]
 
     temphosts_dict = {
         "Group1": {
