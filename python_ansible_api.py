@@ -6,8 +6,6 @@ from collections import namedtuple
 from ansible.parsing.dataloader import DataLoader
 from ansible.vars.manager import VariableManager
 from ansible.inventory.manager import InventoryManager
-from ansible.inventory.group import Group
-from ansible.inventory.host import Host
 from ansible.playbook.play import Play
 from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.executor.playbook_executor import PlaybookExecutor
@@ -126,7 +124,7 @@ class AnsibleApi(object):
 
 if __name__ == "__main__":
     a = AnsibleApi()
-    host_list = ['kibana_all']
+    host_list = ['192.168.122.105']
     tasks_list = [
         dict(action=dict(module='command', args='ls')),
         # dict(action=dict(module='shell', args='python sleep.py')),
