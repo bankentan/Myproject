@@ -6,6 +6,8 @@ from collections import namedtuple
 from ansible.parsing.dataloader import DataLoader
 from ansible.vars.manager import VariableManager
 from ansible.inventory.manager import InventoryManager
+from ansible.inventory.group import Group
+from ansible.inventory.host import Host
 from ansible.playbook.play import Play
 from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.executor.playbook_executor import PlaybookExecutor
@@ -41,7 +43,7 @@ class AnsibleApi(object):
                     'scp_extra_args': '', 'ssh_extra_args': '', 'force_handlers': False, 'flush_cache': None,
                     'become': False, 'become_method': 'sudo', 'become_user': None, 'become_ask_pass': False,
                     'tags': ['all'], 'skip_tags': [], 'check': False, 'syntax': None, 'diff': False,
-                    'inventory': '/Users/caishichao/Code/AnsibleCentrolManagement/inventory/hosts.uat',
+                    'inventory': '/etc/ansible/hosts',
                     'listhosts': None, 'subset': None, 'extra_vars': [], 'ask_vault_pass': False,
                     'vault_password_files': [], 'vault_ids': [], 'forks': 5, 'module_path': None, 'listtasks': None,
                     'listtags': None, 'step': None, 'start_at_task': None, 'args': ['fake']}
@@ -99,11 +101,23 @@ class AnsibleApi(object):
 
     def playbookrun(self, playbook_path):
 
-        # self.variable_manager.extra_vars = {'customer': 'test', 'disabled': 'yes'}
+        playbook_inventory = InventoryManager(loader=self.loader, sources=['playbook_hosts'])
+        playbook_variable = VariableManager(loader=self.loader, inventory=playbook_inventory)
+        playbook_inventory.add_host(host="192.168.122.102", port=22, group='all')
+        playbook_inventory.add_group('test_group')
+        playbook_inventory.add_host(host="192.168.122.103", port=22, group="test_group") 
+        print(playbook_inventory.get_groups_dict())
+        host = playbook_inventory.get_host(hostname="192.168.122.102")
+        host.set_variable("ansible_ssh_pass", "/*bankentan123")
+        host.set_variable("ansible_ssh_user", "root")
+        host.set_variable("ansible_ssh_port", "22")
+        host.set_variable("ansible_ssh_host", "192.168.122.102")
+        host.set_variable("myname", "bankentan")
+        vars = playbook_variable.get_vars(host=host)
+        print(vars)
         context._init_global_context(self.ops)
-
         playbook = PlaybookExecutor(playbooks=playbook_path,
-                                    inventory=self.inventory,
+                                    inventory=playbook_inventory,
                                     variable_manager=self.variable_manager,
                                     loader=self.loader, passwords=self.passwords)
         result = playbook.run()

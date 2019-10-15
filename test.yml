@@ -1,7 +1,6 @@
 - hosts: all
   remote_user: root
   tasks:
-  - name: touch file
-    file:
-      path: /tfile
-      state: touch
+  - name: echo msg
+    debug:
+      msg: "{{ansible_os_family}}"
