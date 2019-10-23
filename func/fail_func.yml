@@ -1,0 +1,18 @@
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - shell: ls -l
+    register: result
+    failed_when: result is success
+    ignore_errors: true
+  - debug:
+      msg: "test1"
+    changed_when: 2 > 1
+  - debug:
+      msg: "test2"
+  - fail:
+  - debug:
+      msg: "test3"
+  - debug:
+      msg: "test4"

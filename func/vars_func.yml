@@ -1,0 +1,59 @@
+- hosts: 192.168.122.101
+  #gather_facts: no
+  vars:
+    myname: bankentan
+    age: 18
+    gender:
+      man: MAN
+      woman: WOMAN
+  vars_files:
+  - ./vars_files.yml 
+  vars_prompt:
+  - name: color
+    prompt: "input color"
+    default: blue
+    private: no
+  - name: food
+    pompt: "input food"
+    default: faker
+  - name: password
+    pompt: "input passwd"
+    private: yes
+    encrypt: "sha512_crypt"
+    confirm: yes
+  tasks:
+  - name: print vars info
+    debug:
+      msg: my name is {{myname}}, age is {{age}}, gender is {{gender.man}}
+  - name: print vars_file info
+    debug:
+      msg: The service is {{myservice}}, The config file is {{config.config8080}}
+  - name: get remote_host vars
+    debug:
+      msg: "{{ansible_facts.user_uid}}"
+  - name: run command
+    command: ls -l
+    register: ls_result
+  - name: print command result
+    debug:
+      msg: "{{ls_result}}"   
+  - name: print user input info
+    debug:
+      msg: your color is {{color}} your food is {{food}} your password is {{password}} 
+  
+  - set_fact:
+      ken_vars1: KV1
+       
+- hosts: 192.168.122.101
+  gather_facts: no
+  tasks:
+  - name: print set_facts vars
+    debug:
+      msg: the set_facts vars is {{ken_vars1}}, result is {{ls_result}}    
+
+- hosts: 192.168.122.102
+  gather_facts: no
+  tasks:
+  - name: print 192.168.122.101 hosts info
+    debug:
+      msg: this 192.168.122.101 hostname is {{hostvars['192.168.122.101'].ansible_hostname}} ,the 192.168.122.101 set_fact is {{hostvars['192.168.122.101'].ken_vars1}} the inventory hostname is {{inventory_hostname}}

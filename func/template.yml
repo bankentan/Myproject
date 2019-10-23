@@ -1,0 +1,35 @@
+{{ mylist }}
+{% for i in mylist %}
+{% if i == 2 %}
+the value is 2
+{% elif i is even %}
+the value is even
+{% elif i == 9 %}
+this is the max num
+{% elif i == 1 %}
+this is the min num
+{% endif %}
+{% endfor %}
+
+{% raw %}
+{{test}}
+{% test2 %}
+{% if 1< 2 %}
+123
+{% endif %}
+{% endraw %}
+
+{% macro testfunc(var1,var2,var3=1,var4=2) %}
+{{var1}}
+{{var2}}
+{{var3}}
+{{var4}}
+{{varargs}}
+{{kwargs}}
+{{caller()}}
+{% endmacro %}
+
+{% call  testfunc(1,2,3,4,5,6,var3="a",var4="b",var5="c",var6="d") %}
+this is call test
+{% endcall %}
+

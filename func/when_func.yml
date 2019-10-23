@@ -1,0 +1,34 @@
+- hosts: 192.168.122.101
+  remote_user: root
+  #gather_facts: no
+  vars:
+    path: /tmp/samsung1
+  tasks:
+  - debug:
+      msg: "{{item}}"
+    with_items: [1, 2, 3]
+    when: item > 1
+
+  - name: print when info
+    debug:
+      msg: the system is centos 7 or 6
+    when: ansible_distribution == "CentOS" and (ansible_distribution_major_version == "6" or ansible_distribution_major_version == "7")
+
+  - name: print when use test
+    debug:
+      msg: the file is exists
+    when: path is exists
+
+  - name: print when user test undefind
+    debug:
+      msg: the var is undefind
+    when: myvars is undefined
+
+  - name: run command
+    shell: ls -ken
+    ignore_errors: true
+    register: result
+  - name: print run command status
+    debug:
+      msg: the command running is failed
+    when: result is failed

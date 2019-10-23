@@ -1,0 +1,11 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: exec shell script
+    script: ./test_script.sh
+  - name: exec python script
+    script: ./test_script.py
+    args:
+      executable: python

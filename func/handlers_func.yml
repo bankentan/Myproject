@@ -1,0 +1,28 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: modify file
+    replace:
+      path: /tmp/handlers.conf
+      regexp: 'aaa'
+      replace: 'kkk'
+    notify:
+      handlers1
+  - meta: flush_handlers
+
+  - name: touch file
+    file:
+      path: /tmp/handlers.file
+      state: touch
+    notify:
+      group1
+
+  handlers:
+  - name: handlers1
+    listen: group1
+    shell: echo "this is handlers1 test" >>/tmp/handlers.test
+  - name: handlers2
+    listen: group1
+    shell: echo "this is handlers2 test" >>/tmp/handlers.test

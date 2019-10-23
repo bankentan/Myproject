@@ -1,0 +1,31 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: change file permission
+    file:
+      path: "/tmp/hosts_info"
+      owner: nginx
+      mode: '0777'
+  - name: create s link
+    file:
+      src: "/tmp/t1"
+      dest: "/tmp/t2"
+      mode: '0644'
+      state: link
+  - name: create file
+    file:
+      path: "/tmp/bankentan"
+      owner: nginx
+      group: nginx
+      mode: '0777'
+      state: touch
+      modification_time: preserve
+  - name: create dir
+    file:
+      path: "/tmp/ken"
+      owner: nginx
+      mode: '0666'
+      state: directory
+      

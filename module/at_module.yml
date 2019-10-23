@@ -1,0 +1,9 @@
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: schedule a command
+    at:
+      command: echo "This is at module test" >/tmp/at_file
+      count: 2
+      units: minutes

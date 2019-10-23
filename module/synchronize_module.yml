@@ -1,0 +1,10 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: sync dir
+    synchronize:
+      src: /tmp/sync
+      dest: /tmp/sync
+      delete: yes

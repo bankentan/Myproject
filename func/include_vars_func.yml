@@ -1,0 +1,14 @@
+- hosts: localhost
+  remote_user: root
+  gather_facts: no
+  vars_files:
+  - /root/ansible/func/include_vars_test.yml
+  tasks:
+  - debug:
+      msg: "{{testvars1}}"
+  - lineinfile:
+      path: "/root/ansible/func/include_vars_test.yml"
+      line: "testvars4: ddd"
+  - include_vars: "/root/ansible/func/include_vars_test.yml"
+  - debug:
+      msg: "{{testvars4}}"

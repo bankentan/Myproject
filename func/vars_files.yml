@@ -1,0 +1,4 @@
+myservice: nginx
+config:
+  config80: /etc/nginx/config80.conf
+  config8080: /etc/nginx/config8080.conf

@@ -1,0 +1,17 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: copy file
+    copy:
+      src: ./test_script.sh
+      dest: /tmp/test_script.sh
+      owner: nginx
+      group: nginx
+      mode: '0644'
+      backup: yes
+  - name: copy content
+    copy:
+      content: '#This is copy module test'
+      dest: /tmp/copy_module_test

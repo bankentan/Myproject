@@ -1,0 +1,13 @@
+---
+- hosts: 192.168.122.105,192.168.122.107
+  gather_facts: no
+  remote_user: root
+  tasks:
+  - name: command module test
+    command: lg
+    register: result
+    ignore_errors: True
+
+  - name: print result
+    debug:
+      msg: "{{result.msg.msg}}"

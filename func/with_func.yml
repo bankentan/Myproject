@@ -1,0 +1,87 @@
+- hosts: 192.168.122.101
+  gather_facts: no
+  vars:
+    dirs:
+    - /tmp/samsung1
+    - /tmp/samsung2
+    - /tmp/samsung3
+    - /tmp/samsung4
+  tasks:
+  - debug:
+      msg: your name is {{item.name}}, your age is {{item.age}}
+    with_items:
+    - {name: ken, age: 18}
+    - {name: ban, age: 28}
+
+  - name: create mulit file 
+    file:
+      path: "{{item}}"
+      state: touch
+    with_items: "{{dirs}}"
+   
+  - name: run a command
+    command: "{{item}}"
+    with_items:
+    - "ls /tmp"
+    - "ls /home"
+    register: result
+
+  - name: print command result
+    debug:
+      msg: "{{item.stdout}}" 
+    with_items: "{{result.results}}"
+
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: print with_list info
+    debug:
+      msg: "{{item}}"
+    with_list:
+    - [a, b, c]
+    - [1, 2, 3]
+
+  - name: print with_together info
+    debug:
+      msg: "{{item}}"
+    with_together:
+    - [a, b, c]
+    - [1, 2, 3]
+
+  - name: print with_cartesian info
+    debug:
+      msg: "{{item}}"
+    with_cartesian:
+    - [a, b, c]
+    - [file1, file2]
+
+  - name: print with_indexed_items
+    debug:
+      msg: "{{item}}"
+    with_indexed_items:
+    - [a, b, c]
+    - [e, [f, g]]
+
+  - name: print with_sequence
+    debug:
+      msg: "{{item}}"
+    with_sequence:
+      start=1
+      end=10
+      stride=2
+
+  - name: print with_random_choice
+    debug:
+      msg: "{{item}}"
+    with_random_choice:
+    - ken
+    - tatn
+    - ban
+    - man
+    - live
+
+  - name: print with_dict
+    debug:
+      msg: ISP is {{item.key}} hostname is {{item.value.hostname}}
+    with_dict: {ct: {hostname: ct-gz-01, ip: [192.168.1.1, 192.168.1.2]}, cnc: {hostname: cnc-gz-01, ip: [192.168.100.1, 192.168.100.2]}}

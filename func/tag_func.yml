@@ -1,0 +1,19 @@
+- hosts: 192.168.122.101
+  gather_facts: no
+  tasks:
+  - name: task1
+    file:
+      path: /tmp/tag1
+      state: touch
+    tags: t1,t2
+  - name: task2
+    file:
+      path: /tmp/tag2
+      state: touch
+    tags: t2,always
+  - name: task3
+    file:
+      path: /tmp/tag3
+      state: touch
+    tags: t3,t1
+    

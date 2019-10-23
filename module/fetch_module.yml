@@ -1,0 +1,9 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: fetch remote file
+    fetch:
+      src: /tmp/hosts_info
+      dest: /tmp/hosts_info

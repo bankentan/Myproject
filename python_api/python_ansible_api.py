@@ -106,7 +106,7 @@ class AnsibleApi(object):
         playbook_inventory.add_host(host="192.168.122.103", port=22, group="test_group") 
         print(playbook_inventory.get_groups_dict())
         host = playbook_inventory.get_host(hostname="192.168.122.102")
-        host.set_variable("ansible_ssh_pass", "123")
+        host.set_variable("ansible_ssh_pass", "/*bankentan123")
         host.set_variable("ansible_ssh_user", "root")
         host.set_variable("ansible_ssh_port", "22")
         host.set_variable("ansible_ssh_host", "192.168.122.102")
@@ -130,5 +130,5 @@ if __name__ == "__main__":
         # dict(action=dict(module='shell', args='python sleep.py')),
         # dict(action=dict(module='synchronize', args='src=/home/op/test dest=/home/op/ delete=yes')),
     ]
-    a.runansible(host_list, tasks_list)
-    a.playbookrun(playbook_path=['./test.yml'])
+    #a.runansible(host_list, tasks_list)
+    a.playbookrun(playbook_path=['/root/ansible/install_nginx.yml'])

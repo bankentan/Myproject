@@ -1,0 +1,24 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: Replace after string
+    replace:
+      path: /tmp/replace_file
+      after: 'bankentan'
+      regexp: '^(.+)$'
+      replace: '# \1'
+  - name: Replace before string
+    replace:
+      path: /tmp/replace_file
+      before: 'bankentan'
+      regexp: '(^aaa$)'
+      replace: '####### \1'
+  - name: Replace btw before after
+    replace:
+      path: /tmp/replace_file
+      #after: '^b.*'
+      before: 'ccc'
+      regexp: '111'
+      replace: '222'

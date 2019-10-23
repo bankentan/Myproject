@@ -1,0 +1,5 @@
+- hosts: ken
+  tasks:
+  - name: go
+    debug:
+      msg: "gogogogoogogo"

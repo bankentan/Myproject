@@ -1,0 +1,26 @@
+---
+#- hosts: 192.168.122.100
+#  remote_user: root
+#  gather_facts: no
+#  tasks:
+#  - name: input password
+#    expect:
+#      command: passwd root
+#      responses:
+#        (?i)password: "123456"
+- hosts: 192.168.122.100
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: question with multi diff responses
+    expect:
+      command: /usr/bin/ls
+      responses:
+        Question:
+          - response1
+          - response2
+          - response3
+    register: result
+  - name: print task info
+    debug:
+      msg: "{{result}}"

@@ -1,0 +1,3 @@
+- name: The include task file
+  debug:
+    msg: the item is "{{item}}"

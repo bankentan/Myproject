@@ -1,0 +1,27 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: replace file line
+    lineinfile:
+      path: /tmp/selinux
+      regexp: '^SELINUX='
+      line: SELINUX=enforcing
+  - name: delete line
+    lineinfile:
+      path: /tmp/selinux
+      regexp: '^SELINUX=no'
+      state: absent
+  - name: insertbefore
+    lineinfile:
+      path: /tmp/http.conf
+      regexp: '^Listen'
+      insertbefore: 'ccc'
+      line: Listen 8080
+  - name: create new file with line
+    lineinfile:
+      path: /tmp/mylinefile
+      line: this is my line file
+      create: yes
+      

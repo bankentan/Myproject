@@ -1,0 +1,12 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: stat func
+    stat:
+      path: /tmp/replace_file
+    register: result
+  - name: print stat info
+    debug:
+      msg: "{{result}}"

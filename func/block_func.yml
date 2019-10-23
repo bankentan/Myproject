@@ -1,0 +1,14 @@
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - block:
+      - shell: ls -a
+      - shell: ls -l
+      - shell: ls -g
+    rescue:
+      - debug:
+          msg: "run the command fail"
+    always:
+      - debug:
+          msg: "this is will run always"

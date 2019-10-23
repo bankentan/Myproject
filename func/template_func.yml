@@ -1,0 +1,10 @@
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  vars:
+    mylist: [1,2,3,4,5,6,7,8,9]
+  tasks:
+  - name: use the template
+    template:
+      src: ./template.yml
+      dest: /tmp/template.yml

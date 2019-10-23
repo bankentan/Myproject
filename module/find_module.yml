@@ -1,0 +1,24 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: age find
+    find:
+      paths: /tmp
+      age: 2d
+      size: 1k
+      recurse: yes
+    register: result
+  - name: print result
+    debug:
+      msg: "{{result}}" 
+
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: find dir
+    find:
+      paths: /tmp
+      file_type: directory

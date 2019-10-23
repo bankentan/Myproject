@@ -1,6 +1,0 @@
-- hosts: all
-  remote_user: root
-  tasks:
-  - name: echo msg
-    debug:
-      msg: "{{ansible_os_family}}"

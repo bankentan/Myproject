@@ -1,0 +1,16 @@
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: The is main yml file
+    debug:
+      msg: "The is main yml file"
+    changed_when: 2 > 1
+    notify: The include handler file
+
+  - include: include_task.yml
+    when: item > 1
+    with_items: [1,2,3]
+
+  handlers:
+  - include: include_handlers.yml

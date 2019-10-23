@@ -1,0 +1,10 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: remove attribute of the element
+    xml:
+      path: /tmp/conf.xml
+      xpath: /business/rating/@subjective
+      state: absent

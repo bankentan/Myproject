@@ -1,0 +1,11 @@
+---
+- hosts: 192.168.122.101, 192.168.122.102
+  remote_user: root
+  vars:
+    my_name: "bankentan"
+  tasks:
+  - name: templeate file
+    template:
+      src: /tmp/my.conf
+      dest: /tmp/your.conf
+      mode: '0600'

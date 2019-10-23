@@ -1,0 +1,13 @@
+---
+- hosts: 192.168.122.101
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: config ini file
+    ini_file:
+      path: /tmp/inifile
+      section: ken 
+      option: name 
+      value: lanli
+      mode: '0777'
+
